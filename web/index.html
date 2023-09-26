@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: none;
+            margin: 100px;
+            background-color: transparent;
+        }
+
+        .button-list {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button-list button {
+            border: none;
+            background-color: rgb(255, 255, 255);
+            border-radius: 0.5vh;
+            margin: 10px;
+            padding: 3px;
+            box-shadow: 3px 4px 5px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .button-list button:hover {
+            border: none;
+            background-color: rgb(166, 166, 166);
+        }
+
+        .title {
+            display: flex;
+            justify-content: center;
+        }
+
+        .title h1 {
+            color: rgb(255, 255, 255);
+            text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.6);
+        }
+
+        .spawn {
+            display: flex;
+            justify-content: center;
+        }
+
+        .spawn button {
+            border: none;
+            margin: 5px;
+            padding: 3px;
+            color: rgb(38, 38, 38);
+            background-color: rgb(255, 255, 255);
+            font-weight: bold;
+            border-radius: 0.5vh;
+            box-shadow: 3px 4px 5px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .spawn button:hover {
+            border: none;
+            background-color: rgb(166, 166, 166);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="button-list">
+    </div>
+    <div class="title">
+        <h1>test</h1>
+    </div>
+    <div class="spawn">
+        <button id="confirm"> <i class="fa fa-hand-pointer"></i> SPAWN</button>
+    </div>
+    <script>
+        $(document).ready(function () {
+            window.addEventListener('message', function (e) {
+                const event = e.data;
+                if (event.show) $('body').css("display", "block");
+                if (event.data) {
+                    const data = event.data
+                    if (data.title) $('.title').children().text(data.title);
+                    if (data.spawns) for (const key in data.spawns) {
+                        if (Object.hasOwnProperty.call(data.spawns, key)) {
+                            const element = data.spawns[key];
+                            CreateButton(key, element)
+                        }
+                    };
+                }
+            })
+            function SetLocation(key) {
+                $.post(`https://${GetParentResourceName()}/setLocation`, JSON.stringify(key));
+            }
+            function CreateButton(key, data) {
+                let newButton = $(`<button value="${key}"><i class="${!data.icon && 'fas fa-circle' || data.icon}"></i> ${data.label}</button>`)
+                $('.button-list').append(newButton);
+                newButton.click(() => {
+                    SetLocation(key)
+                })
+            }
+            $('#confirm').click(function () {
+                $('body').css("display", 'none')
+                $('.button-list').children().remove();
+                $.post(`https://${GetParentResourceName()}/spawn`)
+            });
+        });
+    </script>
+</body>
+
+</html>
