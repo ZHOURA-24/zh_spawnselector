@@ -119,8 +119,9 @@
             }
             $('#confirm').click(function () {
                 $('body').css("display", 'none')
-                $('.button-list').children().remove();
-                $.post(`https://${GetParentResourceName()}/spawn`)
+                $.post(`https://${GetParentResourceName()}/spawn`, function (spawn) {
+                    if (spawn) $('.button-list').children().remove();
+                })
             });
         });
     </script>

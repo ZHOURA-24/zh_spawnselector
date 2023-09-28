@@ -3,9 +3,14 @@ game 'gta5'
 lua54 'yes'
 
 client_script {
-    '@ox_lib/init.lua',
     'config.lua',
-    'client/*.lua'
+    'client/framework/*lua',
+    'client/main.lua'
+}
+
+server_script {
+    '@oxmysql/lib/MySQL.lua',
+    'server/framework/*.lua'
 }
 
 ui_page 'web/index.html'
