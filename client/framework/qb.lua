@@ -15,7 +15,7 @@ RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
     if not new then
         QBCore.Functions.TriggerCallback('qb-spawn:server:getOwnedHouses', function(houses)
             for i = 1, #houses, 1 do
-                local house = houses[1]
+                local house = houses[i]
                 local enter = Houses[house.house].coords.enter
                 myHouses[house.house] = {
                     label = Houses[house.house].adress,
