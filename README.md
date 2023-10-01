@@ -2,6 +2,8 @@
 
 Spawn Selector fivem
 
+Preview [Youtube](https://youtu.be/sgOzVjSy54I?si=T9CIxz8ywCGstZNx)
+
 # Feature
 - Add more locations
 - Supports Custom location like personal property
