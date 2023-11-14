@@ -2,6 +2,14 @@ local cam
 local cam2
 local lastCamLocation
 
+local function SetVisible(bool)
+    SendNUIMessage({
+        action = 'setVisible',
+        data = bool
+    })
+    SetNuiFocus(bool, bool)
+end
+
 ---@param last boolean
 ---@param options table
 function SpawnSelect(last, options)
@@ -40,15 +48,11 @@ function SpawnSelect(last, options)
         SetEntityCoords(PlayerPedId(), point.x, point.y, point.z)
         SetEntityHeading(PlayerPedId(), point.w)
     end
+    SetVisible(true)
+    Wait(100)
     SendNUIMessage({
-        show = true
-    })
-    SetNuiFocus(true, true)
-    SendNUIMessage({
-        data = {
-            spawns = Config.spawns,
-            title = last and Config.spawns['last'].label or Config.spawns[Config.Default].label
-        }
+        action = 'setSpawns',
+        data = Config.spawns
     })
     lastCamLocation = last and 'last' or Config.Default
 end
@@ -69,11 +73,6 @@ RegisterNUICallback('setLocation', function(data, cb)
     SetCamCoord(cam, value.coords.x, value.coords.y, value.coords.z)
     PointCamAtCoord(cam, value.point.x, value.point.y, value.point.z)
     SetCamActiveWithInterp(cam, cam2, 6000, 1, 1)
-    SendNUIMessage({
-        data = {
-            title = value.label
-        }
-    })
     Wait(1000)
     ---@diagnostic disable-next-line: missing-parameter
     SetEntityCoords(PlayerPedId(), value.point.x, value.point.y, value.point.z)
@@ -82,9 +81,14 @@ RegisterNUICallback('setLocation', function(data, cb)
 end)
 
 RegisterNUICallback('spawn', function(data, cb)
+    SendNUIMessage({
+        action = 'setSpawns',
+        data = {}
+    })
+    Wait(100)
+    SetVisible(false)
     SetEntityVisible(PlayerPedId(), true, false)
     FreezeEntityPosition(PlayerPedId(), false)
-    SetNuiFocus(false, false)
     if cam then
         SetCamActive(cam, false)
         DestroyCam(cam, true)

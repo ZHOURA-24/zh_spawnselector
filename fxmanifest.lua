@@ -13,8 +13,8 @@ server_script {
     'server/framework/*.lua'
 }
 
-ui_page 'web/index.html'
-
 files {
-    'web/index.html',
+    'web/dist/**/*',
 }
+
+ui_page 'web/dist/index.html'
