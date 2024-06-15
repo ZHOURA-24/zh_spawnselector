@@ -18,3 +18,5 @@ files {
 }
 
 ui_page 'web/dist/index.html'
+
+-- provide 'qb-spawn

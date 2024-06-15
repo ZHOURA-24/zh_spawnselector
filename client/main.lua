@@ -2,16 +2,25 @@ local cam
 local cam2
 local lastCamLocation
 
-local function SetVisible(bool)
+---@param show boolean
+local function SetVisible(show)
     SendNUIMessage({
         action = 'setVisible',
-        data = bool
+        data = show
     })
-    SetNuiFocus(bool, bool)
+    SetNuiFocus(show, show)
 end
 
+---@class Spawn
+---@field label string
+---@field description string
+---@field coords vector4
+---@field point vector4
+---@field image string
+---@field icon string
+
 ---@param last boolean
----@param options table
+---@param options Spawn
 function SpawnSelect(last, options)
     local coords = last and GetEntityCoords(PlayerPedId()) or Config.spawns[Config.Default].coords
     local heading = GetEntityHeading(PlayerPedId())
@@ -61,8 +70,9 @@ exports('SpawnSelect', SpawnSelect)
 
 RegisterNUICallback('setLocation', function(data, cb)
     if lastCamLocation == data then
-        return
+        return cb(false)
     end
+    lastCamLocation = data
     local value = Config.spawns[data]
     local lastValue = Config.spawns[lastCamLocation]
     cam2 = CreateCam('DEFAULT_SCRIPTED_CAMERA', true)
@@ -77,7 +87,8 @@ RegisterNUICallback('setLocation', function(data, cb)
     ---@diagnostic disable-next-line: missing-parameter
     SetEntityCoords(PlayerPedId(), value.point.x, value.point.y, value.point.z)
     SetEntityHeading(PlayerPedId(), value.point.w)
-    lastCamLocation = data
+    Wait(5000)
+    cb(true)
 end)
 
 RegisterNUICallback('spawn', function(data, cb)
