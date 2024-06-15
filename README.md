@@ -1,9 +1,10 @@
-# zh_spawnselector
 
 Spawn Selector fivem
 
-Preview [Youtube](https://youtu.be/sgOzVjSy54I?si=T9CIxz8ywCGstZNx)
-New Preview [Youtube](https://youtu.be/HlfzlqcrRm8)
+OLD Preview [Youtube](https://youtu.be/sgOzVjSy54I?si=T9CIxz8ywCGstZNx)
+OLD Preview [Youtube](https://youtu.be/HlfzlqcrRm8)
+# NEW Preview
+![Screenshot 2024-06-16 002546](https://github.com/ZHOURA-24/zh_spawnselector/assets/98719591/7877b271-4ef4-44df-888f-c7be99bbe280)# zh_spawnselector
 
 # Feature 
 - Add more locations
@@ -35,4 +36,16 @@ add provides { 'qb-spawn', 'qbx-spawn' } at the end of zh_spawnselector/fxmanife
 ## ESX 
 ```
 😴😴😴😴
+```
+
+### Clone a repository or [download]([https://github.com/ZHOURA-24/zh_statusitem/releases](https://github.com/ZHOURA-24/zh_spawnselector/releases/tag/release1)) here
+
+```
+git clone https://github.com/ZHOURA-24/zh_spawnselector
+```
+
+### Start resource
+
+```
+start zh_spawnselector
 ```
