@@ -1,51 +1,16 @@
 # zh_spawnselector
 Spawn Selector fivem
 
-OLD Preview [Youtube](https://youtu.be/sgOzVjSy54I?si=T9CIxz8ywCGstZNx)
-OLD Preview [Youtube](https://youtu.be/HlfzlqcrRm8)
-# NEW Preview
-![Screenshot 2024-06-16 002546](https://github.com/ZHOURA-24/zh_spawnselector/assets/98719591/7877b271-4ef4-44df-888f-c7be99bbe280)
+## 📚 Documentation
+
+https://docs.24hour.world/zh_spawnselector
 
 # Feature 
-- Add more locations
 - Supports Custom location like personal property
 - Smooth Camera movement
 
-# Config 
-```
-Config.Default = 'harbour'
+OLD Preview [Youtube](https://youtu.be/sgOzVjSy54I?si=T9CIxz8ywCGstZNx)
+OLD Preview [Youtube](https://youtu.be/HlfzlqcrRm8)
+## NEW Preview
+![Screenshot 2024-06-16 002546](https://github.com/ZHOURA-24/zh_spawnselector/assets/98719591/7877b271-4ef4-44df-888f-c7be99bbe280)
 
-Config.spawns = {
-    ['harbour'] = {
-        label  = 'Harbour',
-        coords = vec4(-746.5240, -1286.9004, 18.1261, 229.9520),
-        point  = vec4(-726.5360, -1303.2379, 5.1019, 50.4984),
-    },
-    ['airport'] = {
-        label  = 'Airport',
-        coords = vec4(-1019.8279, -2701.0479, 32.5290, 154.0629),
-        point  = vec4(-1037.7335, -2737.2827, 20.1693, 333.3880),
-    }
-}
-```
-# Installation 
-## qb-core or qbx-core
-```
-add provides { 'qb-spawn', 'qbx-spawn' } at the end of zh_spawnselector/fxmanifest.lua file
-``` 
-## ESX 
-```
-😴😴😴😴
-```
-
-### Clone a repository or [download]([https://github.com/ZHOURA-24/zh_statusitem/releases](https://github.com/ZHOURA-24/zh_spawnselector/releases/tag/release1)) here
-
-```
-git clone https://github.com/ZHOURA-24/zh_spawnselector
-```
-
-### Start resource
-
-```
-start zh_spawnselector
-```
