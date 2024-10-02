@@ -21,7 +21,8 @@ end
 
 ---@param last boolean
 ---@param options Spawn
-function SpawnSelect(last, options)
+---@param newChar? boolean
+function SpawnSelect(last, options, newChar)
     local coords = last and GetEntityCoords(PlayerPedId()) or Config.spawns[Config.Default].coords
     local heading = GetEntityHeading(PlayerPedId())
     local point = last and GetEntityCoords(PlayerPedId()) or Config.spawns[Config.Default].point
@@ -61,7 +62,7 @@ function SpawnSelect(last, options)
     Wait(100)
     SendNUIMessage({
         action = 'setSpawns',
-        data = Config.spawns
+        data = newChar and options or Config.spawns
     })
     lastCamLocation = last and 'last' or Config.Default
 end
@@ -112,4 +113,7 @@ RegisterNUICallback('spawn', function(data, cb)
     end
     RenderScriptCams(false, true, 5000, true, true)
     cb(true)
+    if Config.spawns[data] and Config.spawns[data].appartment then
+        GiveApartment(data)
+    end
 end)

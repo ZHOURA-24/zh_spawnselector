@@ -28,7 +28,7 @@ function App() {
               onClick={() => {
                 if (selected === key) {
                   setSelected(undefined)
-                  return fetchNui('spawn')
+                  return fetchNui('spawn', key)
                 }
                 setSelected(key)
                 setDisabled(true)

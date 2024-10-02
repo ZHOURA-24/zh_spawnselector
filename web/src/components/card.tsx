@@ -14,7 +14,6 @@ export type DataProps = {
 type CardProps = DataProps & React.HTMLAttributes<HTMLButtonElement>;
 
 export const Card = ({ label, description, image, active, icon, ...props }: CardProps) => {
-    console.log(icon || "Map")
     return (
         <div className="flex flex-col gap-y-2">
             <div className="h-fit w-full border rounded flex flex-col relative bg-white/20">

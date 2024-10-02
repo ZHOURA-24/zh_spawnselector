@@ -6,6 +6,8 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 local Houses = {}
 local myHouses = {}
+local apartments = {}
+local newChar = false
 
 RegisterNetEvent('qb-houses:client:setHouseConfig', function(houseConfig)
     Houses = houseConfig
@@ -16,16 +18,30 @@ RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
         QBCore.Functions.TriggerCallback('qb-spawn:server:getOwnedHouses', function(houses)
             for i = 1, #houses, 1 do
                 local house = houses[i]
-                local enter = Houses[house.house].coords.enter
+                local enter = Houses[house.house] and Houses[house.house].coords.enter
+                if not enter then
+                    return
+                end
                 myHouses[house.house] = {
                     label = Houses[house.house].adress,
                     coords = vec3(enter.x + 20, enter.y + 20, enter.z + 10),
                     point = vec3(enter.x, enter.y, enter.z),
-                    icon = 'fas fa-home'
+                    icon = 'House'
                 }
             end
         end, cData.citizenid)
+    else
+        for k, v in pairs(apps) do
+            apartments[k] = {
+                label = v.label,
+                coords = vec3(v.coords.enter.x, v.coords.enter.y, v.coords.enter.z + 10),
+                point = v.coords.enter,
+                icon = 'Building',
+                appartment = true
+            }
+        end
     end
+    newChar = new
 end)
 
 RegisterNetEvent('qb-spawn:client:openUI', function(value)
@@ -40,5 +56,15 @@ RegisterNetEvent('qb-spawn:client:openUI', function(value)
     DoScreenFadeOut(250)
     Wait(1000)
     DoScreenFadeIn(250)
-    SpawnSelect(value, myHouses)
+    if not newChar then
+        SpawnSelect(value, myHouses)
+    else
+        SpawnSelect(value, apartments, newChar)
+    end
 end)
+
+function GiveApartment(appartment)
+    if GetResourceState('qb-apartments') == 'started' then
+        TriggerServerEvent("apartments:server:CreateApartment", appartment, apartments[appartment].label, true)
+    end
+end

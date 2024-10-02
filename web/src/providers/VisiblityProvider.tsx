@@ -27,7 +27,6 @@ export const VisibilityProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // Handle pressing escape/backspace
     useEffect(() => {
-        console.log(visible)
         // Only attach listener when we are visible
         if (!visible) return;
 
