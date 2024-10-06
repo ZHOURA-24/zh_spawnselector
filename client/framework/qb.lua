@@ -32,13 +32,15 @@ RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
         end, cData.citizenid)
     else
         for k, v in pairs(apps) do
-            apartments[k] = {
-                label = v.label,
-                coords = vec3(v.coords.enter.x, v.coords.enter.y, v.coords.enter.z + 10),
-                point = v.coords.enter,
-                icon = 'Building',
-                appartment = true
-            }
+            if v.coords then
+                apartments[k] = {
+                    label = v.label,
+                    coords = vec3(v.coords.enter.x, v.coords.enter.y, v.coords.enter.z + 10),
+                    point = v.coords.enter,
+                    icon = 'Building',
+                    appartment = true
+                }
+            end
         end
     end
     newChar = new
@@ -61,6 +63,7 @@ RegisterNetEvent('qb-spawn:client:openUI', function(value)
     else
         SpawnSelect(value, apartments, newChar)
     end
+    newChar = false
 end)
 
 function GiveApartment(appartment)

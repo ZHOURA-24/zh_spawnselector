@@ -19,4 +19,4 @@ files {
 
 ui_page 'web/dist/index.html'
 
--- provide 'qb-spawn
+provide 'qb-spawn'
